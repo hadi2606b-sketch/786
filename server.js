@@ -69,7 +69,7 @@ app.use(session({
   rolling: true,
   cookie: { httpOnly: true, sameSite: 'lax', secure: isProduction, maxAge: 1000 * 60 * 60 * 24 * 7 }
 }));
-app.use(express.static(__dirname, { index: 'index.html', extensions: ['html'] }));
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 
 const authLimiter = rateLimit({ windowMs: 15 * 60 * 1000, limit: 12, standardHeaders: 'draft-8', legacyHeaders: false, message: { error: 'Too many attempts. Please wait a little and try again.' } });
 const bookingLimiter = rateLimit({ windowMs: 60 * 60 * 1000, limit: 20, standardHeaders: 'draft-8', legacyHeaders: false });
