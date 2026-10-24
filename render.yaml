@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: gb-tour-hub
+    runtime: node
+    plan: starter
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: DATA_DIR
+        value: /var/data
+    disk:
+      name: gb-tour-hub-data
+      mountPath: /var/data
+      sizeGB: 1
